@@ -7,13 +7,13 @@ async function sendEmail(email, code) {
 
     const port = 465;
 
-    const senderAddress = "NAME <ADDRESS>";
+    const senderAddress = process.env.SENDGRID_EMAIL_ADDRESS;
 
-    var toAddress = email;
+    const toAddress = email;
 
-    const smtpUsername = "apikey";
+    const smtpUsername = process.env.USERNAME;
 
-    const smtpPassword = process.env.SG_APIKEY;
+    const smtpPassword = process.env.SENDGRID_API_KEY;
 
     var subject = "Verify your email";
 
