@@ -15,7 +15,7 @@ async function sendEmail(email, code) {
 
     const smtpPassword = process.env.SENDGRID_API_KEY;
 
-    var subject = "Verify your email";
+    const subject = "Verify your email";
 
     // The body of the email for recipients
     var body_html = `<!DOCTYPE> 
