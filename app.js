@@ -6,7 +6,7 @@ const PORT = 5000;
 
 const authRoutes = require("./routes/users");
 
-const BASE_URL = "/api/v1/"
+const BASE_URL = "/api/v1"
 
 mongoose
   .connect(process.env.MONGO_URI, {
