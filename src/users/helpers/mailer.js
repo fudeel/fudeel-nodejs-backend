@@ -11,11 +11,9 @@ const transporter = nodemailer.createTransport({
 });
 transporter.verify().then().catch(console.error);
 
-async function sendEmail(email, code) {
-  let link = process.env.BASE_HOST + "/users/api/auth/activate?email=" + email + "&code=" + code;
+async function sendEmail(email, code, action, link) {
 
-  // The body of the email for recipients
-  const body_html = `<!DOCTYPE> 
+  const activation_body = `<!DOCTYPE> 
     <html>
       <body>
         <p>Your activation link is: </p> 
@@ -23,13 +21,20 @@ async function sendEmail(email, code) {
       </body>
     </html>`;
 
+  const new_password_body = `<!DOCTYPE> 
+    <html>
+      <body>
+      <p>Click the link below to reset your password</p>
+      <a href="${link}">${link}</a>
+      <p>If you did not request a password change, ignore this email.</p>
+    </html>`;
+
   try {
     transporter.sendMail({
       from: process.env.PROJECT_NAME,
       to: email,
-      subject: `Complete your registration`,
-      text: `Hello ${email}, please complete your registration by clicking on the link below`,
-      html: body_html
+      subject: action === "activate" ? "Complete your registration" : action === "reset" ? "Password reset" : "ok",
+      html: action === "activate" ? activation_body : action === "reset" ? new_password_body : null
     }).then(info => {
       console.log({info});
     }).catch(console.error);
