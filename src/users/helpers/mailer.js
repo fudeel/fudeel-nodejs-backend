@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 transporter.verify().then().catch(console.error);
 
 async function sendEmail(email, code, req) {
-  let link = "http://" + req.headers.host + "/users/api/auth/activate?email=" + email + "&code=" + code;
+  let link = process.env.HOST_PREFIX + "://" + process.env.HOST + ":" + process.env.HOST_PORT + "/users/api/auth/activate?email=" + email + "&code=" + code;
 
   // The body of the email for recipients
   const body_html = `<!DOCTYPE> 
