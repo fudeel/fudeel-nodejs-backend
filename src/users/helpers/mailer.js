@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 transporter.verify().then().catch(console.error);
 
-async function sendEmail(email, code, req) {
+async function sendEmail(email, code) {
   let link = process.env.BASE_HOST + "/users/api/auth/activate?email=" + email + "&code=" + code;
 
   // The body of the email for recipients
@@ -27,7 +27,7 @@ async function sendEmail(email, code, req) {
     transporter.sendMail({
       from: process.env.PROJECT_NAME,
       to: email,
-      subject: `Complete your registration`, // Subject line
+      subject: `Complete your registration`,
       text: `Hello ${email}, please complete your registration by clicking on the link below`,
       html: body_html
     }).then(info => {

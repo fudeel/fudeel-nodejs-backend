@@ -6,7 +6,7 @@ const { validateToken } = require("../middlewares/validateToken");
 
 const AuthController = require("../src/users/user.controller");
 
-const baseUrl = '/api/auth'
+const baseUrl = '/auth'
 
 router.post(baseUrl + "/signup", cleanBody, AuthController.Signup);
 

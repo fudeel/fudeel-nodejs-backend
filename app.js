@@ -6,6 +6,8 @@ const PORT = 5000;
 
 const authRoutes = require("./routes/users");
 
+const BASE_URL = "/api/v1/"
+
 mongoose
   .connect(process.env.MONGO_URI, {
     dbName: process.env.DB_NAME,
@@ -31,7 +33,7 @@ app.get("/ping", (req, res) => {
   });
 });
 
-app.use("/users", authRoutes);
+app.use( BASE_URL + "/users", authRoutes);
 
 app.listen(PORT, () => {
   console.log("Server started listening on PORT : " + PORT);
