@@ -6,18 +6,22 @@ const { validateToken } = require("../middlewares/validateToken");
 
 const AuthController = require("../src/users/user.controller");
 
-router.post("/signup", cleanBody, AuthController.Signup);
+const baseUrl = '/api/auth'
 
-router.patch("/activate", cleanBody, AuthController.Activate);
+router.post(baseUrl + "/signup", cleanBody, AuthController.Signup);
 
-router.post("/login", cleanBody, AuthController.Login);
+router.patch(baseUrl + "/activate", cleanBody, AuthController.Activate);
 
-router.patch("/forgot", cleanBody, AuthController.ForgotPassword);
+router.post(baseUrl + "/login", cleanBody, AuthController.Login);
 
-router.patch("/reset", cleanBody, AuthController.ResetPassword);
+router.patch(baseUrl + "/forgot", cleanBody, AuthController.ForgotPassword);
 
-router.get("/referred", validateToken, AuthController.ReferredAccounts);
+router.patch(baseUrl + "/recover", cleanBody, AuthController.recover);
 
-router.get("/logout", validateToken, AuthController.Logout);
+router.patch(baseUrl + "/reset", cleanBody, AuthController.ResetPassword);
+
+router.get(baseUrl + "/referred", validateToken, AuthController.ReferredAccounts);
+
+router.get(baseUrl + "/logout", validateToken, AuthController.Logout);
 
 module.exports = router;
