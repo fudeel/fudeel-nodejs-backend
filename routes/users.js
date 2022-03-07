@@ -22,4 +22,6 @@ router.get(baseUrl + "/referred", validateToken, AuthController.ReferredAccounts
 
 router.get(baseUrl + "/logout", validateToken, AuthController.Logout);
 
+
+
 module.exports = router;
