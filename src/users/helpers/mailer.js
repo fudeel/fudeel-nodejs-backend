@@ -1,4 +1,3 @@
-require("react")
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
@@ -19,7 +18,8 @@ async function sendEmail(email, code, req) {
   const body_html = `<!DOCTYPE> 
     <html>
       <body>
-        <p>Your activation link is code is : </p> <a href="${link}">${link}</a>
+        <p>Your activation link is: </p> 
+        <a href="${link}">${link}</a>
       </body>
     </html>`;
 
