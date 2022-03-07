@@ -7,8 +7,6 @@ const { generateJwt } = require("./helpers/generateJwt");
 const { sendEmail } = require("./helpers/mailer");
 const User = require("./user.model");
 
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -64,7 +62,7 @@ exports.Signup = async (req, res) => {
 
     let expiry = Date.now() + 60 * 1000 * 15; //15 mins in ms
 
-    const sendCode = await sendEmail(result.value.email, code);
+    const sendCode = await sendEmail(result.value.email, code, req);
 
     if (sendCode.error) {
       return res.status(500).json({
@@ -107,7 +105,7 @@ exports.Signup = async (req, res) => {
 
 exports.Activate = async (req, res) => {
   try {
-    const { email, code } = req.body;
+    const { email, code } = req.query;
     if (!email || !code) {
       return res.json({
         error: true,

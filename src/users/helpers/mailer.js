@@ -1,3 +1,4 @@
+require("react")
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
@@ -11,14 +12,24 @@ const transporter = nodemailer.createTransport({
 });
 transporter.verify().then().catch(console.error);
 
-async function sendEmail(email, code) {
+async function sendEmail(email, code, req) {
+  let link = "http://" + req.headers.host + "/users/api/auth/activate?email=" + email + "&code=" + code;
+
+  // The body of the email for recipients
+  const body_html = `<!DOCTYPE> 
+    <html>
+      <body>
+        <p>Your activation link is code is : </p> <a href="${link}">${link}</a>
+      </body>
+    </html>`;
+
   try {
     transporter.sendMail({
       from: process.env.PROJECT_NAME,
       to: email,
       subject: `Complete your registration`, // Subject line
       text: `Hello ${email}, please complete your registration by clicking on the link below`,
-      html: "<br>", // html body
+      html: body_html
     }).then(info => {
       console.log({info});
     }).catch(console.error);
