@@ -273,8 +273,8 @@ exports.ForgotPassword = async (req, res) => {
 
 exports.ResetPassword = async (req, res) => {
   try {
-    const { token, newPassword, confirmPassword } = req.body;
-    if (!token || !newPassword || !confirmPassword) {
+    const { passwordResetToken, newPassword, confirmPassword } = req.body;
+    if (!passwordResetToken || !newPassword || !confirmPassword) {
       return res.status(403).json({
         error: true,
         message:
@@ -282,7 +282,7 @@ exports.ResetPassword = async (req, res) => {
       });
     }
     const user = await User.findOne({
-      resetPasswordToken: req.body.token,
+      resetPasswordToken: req.body.passwordResetToken,
       resetPasswordExpires: { $gt: Date.now() },
     });
     if (!user) {
@@ -385,7 +385,7 @@ exports.recover = async (req, res) => {
             .then(async user => {
               const action = "reset";
               // send email
-              let link = process.env.BASE_HOST + "/api/v1/users/auth/reset?code=" + user.resetPasswordToken;
+              let link = process.env.BASE_HOST + "/api/v1/users/auth/reset?passwordResetToken=" + user.resetPasswordToken;
 
               await sendEmail(user.email, this.resetPasswordToken, action, link).then(() => {
                 res.status(200).json({message: "If that email address is in our database, we will send you an email to reset your password"});
@@ -417,7 +417,7 @@ exports.reset = (req, res) => {
 // @desc Reset Password
 // @access Public
 exports.resetPassword = (req, res) => {
-  User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}})
+  User.findOne({resetPasswordToken: req.params.passwordResetToken, resetPasswordExpires: {$gt: Date.now()}})
       .then((user) => {
         if (!user) return res.status(401).json({message: 'Password reset token is invalid or has expired.'});
 
