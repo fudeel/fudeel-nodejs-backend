@@ -18,6 +18,7 @@ mongoose
     console.log("Database connection Success.");
   })
   .catch((err) => {
+      console.table(process.env);
     console.error("Mongo Connection Error", err);
   });
 
