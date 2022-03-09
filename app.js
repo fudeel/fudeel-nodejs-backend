@@ -13,7 +13,7 @@ const BASE_URL = "/api/v1"
 console.log('BASE_HOST: ', process.env.BASE_HOST);
 
 mongoose
-    .connect(process.env.MONGO_URI, {
+    .connect(process.env.MONGODB_URI, {
         dbName: process.env.DB_NAME,
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -22,7 +22,6 @@ mongoose
         console.log("Database connection Success.");
     })
     .catch((err) => {
-        console.table(process.env);
         console.error("Mongo Connection Error", err);
     });
 
@@ -40,6 +39,6 @@ app.get("/ping", (req, res) => {
 
 app.use( BASE_URL + "/users", authRoutes);
 
-app.listen(PORT, process.env.LOCAL_HOST_IP, () => {
+app.listen(PORT, () => {
     console.log("Server started listening on PORT : " + PORT);
 });
