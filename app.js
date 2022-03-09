@@ -13,12 +13,7 @@ const BASE_URL = "/api/v1"
 console.log('BASE_HOST: ', process.env.BASE_HOST);
 
 mongoose
-    .connect(process.env.MONGODB_URI, {
-        dbName: process.env.DB_NAME,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        family: 4
-    })
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
     .then(() => {
         console.log("Database connection Success.");
     })
