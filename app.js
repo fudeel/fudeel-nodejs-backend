@@ -1,6 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const os = require("os");
+const hostname = os.hostname();
+const hostnameNetwork = os.networkInterfaces();
+
+
 require("dotenv").config();
 const PORT = 5000;
 
@@ -9,6 +14,8 @@ const authRoutes = require("./routes/users");
 const BASE_URL = "/api/v1"
 
 console.log('BASE_HOST: ', process.env.BASE_HOST);
+console.log('hostname: ', process.env.BASE_HOST);
+console.log('hostnameNetwork: ', process.env.BASE_HOST);
 
 mongoose
     .connect(process.env.MONGO_URI, {
