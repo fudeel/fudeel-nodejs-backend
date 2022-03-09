@@ -18,7 +18,7 @@ mongoose
         console.log("Database connection Success.");
     })
     .catch((err) => {
-        console.log("MONGODB_URI: ",process.env.MONGO_URI);
+        console.log("MONGODB_URI: ",process.env.MONGODB_URI);
         console.log("DB_NAME: ",process.env.DB_NAME);
         console.error("Mongo Connection Error", err);
     });
