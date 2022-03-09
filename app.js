@@ -14,8 +14,8 @@ const authRoutes = require("./routes/users");
 const BASE_URL = "/api/v1"
 
 console.log('BASE_HOST: ', process.env.BASE_HOST);
-console.log('hostname: ', process.env.BASE_HOST);
-console.log('hostnameNetwork: ', process.env.BASE_HOST);
+console.log('hostname: ', hostname);
+console.log('hostnameNetwork: ', hostnameNetwork);
 
 mongoose
     .connect(process.env.MONGO_URI, {
